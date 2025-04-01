@@ -10,5 +10,6 @@ public class PlayerProfile : Profile
     public PlayerProfile()
     {
         CreateMap<Player, PlayerDto>().ReverseMap();
+        CreateMap<RegisterDto, PlayerDto>().ReverseMap();
     }
 }
