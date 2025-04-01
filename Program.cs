@@ -1,14 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using PlayerAuthServer.Database;
 using PlayerAuthServer.Database.Repositories;
-using PlayerAuthServer.Interfaces;
-using PlayerAuthServer.Services;
+using PlayerAuthServer.Core.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using PlayerAuthServer.Utilities;
 using System.Text;
-using Microsoft.Extensions.Options;
+using PlayerAuthServer.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

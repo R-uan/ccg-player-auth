@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using PlayerAuthServer.Database.DataTransferObject;
-using PlayerAuthServer.Exceptions;
-using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Core.Interfaces;
+using PlayerAuthServer.Utilities.Exceptions;
+using PlayerAuthServer.Utilities.DataTransferObjects;
 
-namespace PlayerAuthServer.Controller
+namespace PlayerAuthServer.Core.Controllers
 {
     [ApiController]
     [Route("api/auth")]

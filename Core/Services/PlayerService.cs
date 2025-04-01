@@ -1,9 +1,10 @@
 using AutoMapper;
-using PlayerAuthServer.Database.DataTransferObject;
+using PlayerAuthServer.Core.Interfaces;
 using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Exceptions;
-using PlayerAuthServer.Interfaces;
-namespace PlayerAuthServer.Services
+using PlayerAuthServer.Utilities.Exceptions;
+using PlayerAuthServer.Utilities.DataTransferObjects;
+
+namespace PlayerAuthServer.Core.Services
 {
     public class PlayerService(IPlayerRepository repository, IMapper _mapper) : IPlayerService
     {

@@ -1,10 +1,10 @@
 
-using PlayerAuthServer.Database.DataTransferObject;
 using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Exceptions;
-using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Core.Interfaces;
+using PlayerAuthServer.Utilities.DataTransferObjects;
+using PlayerAuthServer.Utilities.Exceptions;
 
-namespace PlayerAuthServer.Services
+namespace PlayerAuthServer.Core.Services
 {
     public class AuthService(JwtService jwtService, IPlayerService playerService) : IAuthService
     {

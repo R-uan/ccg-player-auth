@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using PlayerAuthServer.Core.Interfaces;
 using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Interfaces;
 
 namespace PlayerAuthServer.Database.Repositories
 {

@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using PlayerAuthServer.Database.Entities;
 using PlayerAuthServer.Utilities;
 
-namespace PlayerAuthServer.Services
+namespace PlayerAuthServer.Core.Services
 {
     public class JwtService(IOptions<JwtSettings> jwtSettings)
     {

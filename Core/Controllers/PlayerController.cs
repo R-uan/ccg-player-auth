@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Core.Interfaces;
 using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Database.DataTransferObject;
+using PlayerAuthServer.Utilities.DataTransferObjects;
 
-namespace PlayerAuthServer.Controller
+namespace PlayerAuthServer.Core.Controllers
 {
     [ApiController]
     [Route("api/player")]
@@ -22,14 +22,12 @@ namespace PlayerAuthServer.Controller
         }
 
         [HttpPost("")]
-        public async Task<ActionResult<bool>> PostPlayer([FromBody] PlayerDto player)
+        public async Task<ActionResult> PostPlayer([FromBody] PlayerDto player)
         {
             var create_player = await service.CreatePlayer(player);
             if (!ModelState.IsValid)
-            {
                 return BadRequest("xdx");
-            }
-            return create_player ? Ok() : BadRequest("aaa");
+            return Ok(create_player);
         }
     }
 }

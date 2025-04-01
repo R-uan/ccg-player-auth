@@ -1,7 +1,6 @@
-using System;
-using PlayerAuthServer.Database.DataTransferObject;
+using PlayerAuthServer.Utilities.DataTransferObjects;
 
-namespace PlayerAuthServer.Interfaces
+namespace PlayerAuthServer.Core.Interfaces
 {
     public interface IAuthService
     {

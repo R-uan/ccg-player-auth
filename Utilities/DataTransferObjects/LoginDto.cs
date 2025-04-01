@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PlayerAuthServer.Database.DataTransferObject
+namespace PlayerAuthServer.Utilities.DataTransferObjects
 {
     public class LoginDto
     {

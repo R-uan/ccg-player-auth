@@ -1,5 +1,3 @@
-using System;
-
 namespace PlayerAuthServer.Utilities
 {
     public class JwtSettings
