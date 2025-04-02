@@ -4,12 +4,13 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using PlayerAuthServer.Core.Interfaces;
 using PlayerAuthServer.Database.Entities;
 using PlayerAuthServer.Utilities;
 
 namespace PlayerAuthServer.Core.Services
 {
-    public class JwtService(IOptions<JwtSettings> jwtSettings)
+    public class JwtService(IOptions<JwtSettings> jwtSettings) : IJwtService
     {
         private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 

@@ -6,7 +6,7 @@ using PlayerAuthServer.Utilities.Exceptions;
 
 namespace PlayerAuthServer.Core.Services
 {
-    public class AuthService(JwtService jwtService, IPlayerService playerService) : IAuthService
+    public class AuthService(IJwtService jwtService, IPlayerService playerService) : IAuthService
     {
         public async Task<string> AuthenticatePlayer(LoginDto credentials)
         {
