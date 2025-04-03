@@ -3,7 +3,7 @@ using PlayerAuthServer.Database.Entities;
 
 namespace PlayerAuthServer.Core.Interfaces
 {
-    public interface IPlayerDecksRepository
+    public interface IPlayerDeckRepository
     {
         /// <summary>
         ///     Links a deck identification to a player

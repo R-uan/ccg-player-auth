@@ -33,7 +33,8 @@ namespace PlayerAuthServer
 
             builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
             builder.Services.AddScoped<IPlayerService, PlayerService>();
-
+            builder.Services.AddScoped<IPlayerDeckRepository, PlayerDeckRepository>();
+            builder.Services.AddScoped<IPlayerDeckService, PlayerDeckService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

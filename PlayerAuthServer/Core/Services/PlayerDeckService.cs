@@ -5,7 +5,7 @@ using PlayerAuthServer.Utilities.Exceptions;
 
 namespace PlayerAuthServer.Core.Services
 {
-    public class PlayerDeckService(IPlayerService playerService, IPlayerDecksRepository playerDeckRepository) : IPlayerDeckService
+    public class PlayerDeckService(IPlayerService playerService, IPlayerDeckRepository playerDeckRepository) : IPlayerDeckService
     {
         public async Task<PlayerDeck> LinkPlayerDeck(Guid playerUUID, Guid deckUUID)
         {
@@ -14,7 +14,7 @@ namespace PlayerAuthServer.Core.Services
 
             return await playerDeckRepository.LinkDeck(new()
             {
-                DeckGuid = playerUUID,
+                DeckGuid = deckUUID,
                 PlayerGuid = player.UUID
             });
         }

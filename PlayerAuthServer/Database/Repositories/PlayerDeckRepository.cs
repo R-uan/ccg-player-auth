@@ -5,7 +5,7 @@ using PlayerAuthServer.Database.Entities;
 
 namespace PlayerAuthServer.Database.Repositories;
 
-public class PlayerDeckRepository(PlayerDbContext dbContext) : IPlayerDecksRepository
+public class PlayerDeckRepository(PlayerDbContext dbContext) : IPlayerDeckRepository
 {
     public async Task<PlayerDeck> LinkDeck(PlayerDeck entity)
     {
