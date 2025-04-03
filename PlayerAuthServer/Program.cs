@@ -1,50 +1,62 @@
-using Microsoft.EntityFrameworkCore;
-using PlayerAuthServer.Database;
-using PlayerAuthServer.Database.Repositories;
-using PlayerAuthServer.Core.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using PlayerAuthServer.Utilities;
 using System.Text;
+using PlayerAuthServer.Database;
+using PlayerAuthServer.Utilities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PlayerAuthServer.Core.Services;
+using PlayerAuthServer.Core.Interfaces;
+using PlayerAuthServer.Database.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext<PlayerDbContext>(options =>
+namespace PlayerAuthServer
 {
-    var connectionString = builder.Configuration.GetConnectionString("PgDb");
-    options.UseNpgsql(connectionString);
-});
-
-var jwtSettingsSection = builder.Configuration.GetSection("Jwt");
-builder.Services.Configure<JwtSettings>(jwtSettingsSection);
-builder.Services.AddScoped<IJwtService, JwtService>();
-
-builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
-builder.Services.AddScoped<IPlayerService, PlayerService>();
-
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    var jwtSettings = jwtSettingsSection.Get<JwtSettings>()
-        ?? throw new Exception("JwtSettings were not found on the configuration file.");
-    var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SigningKey));
-    options.TokenValidationParameters = new TokenValidationParameters
+    public class Program
     {
-        ValidateIssuer = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings.Issuer,
-        IssuerSigningKey = signingKey
-    };
-});
+        private static void Main(string[] args)
+        {
+
+            var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddControllers();
+
+            builder.Services.AddDbContext<PlayerDbContext>(options =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("PgDb");
+                options.UseNpgsql(connectionString);
+            });
+
+            var jwtSettingsSection = builder.Configuration.GetSection("Jwt");
+            builder.Services.Configure<JwtSettings>(jwtSettingsSection);
+            builder.Services.AddScoped<IJwtService, JwtService>();
+
+            builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+            builder.Services.AddScoped<IPlayerService, PlayerService>();
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                var jwtSettings = jwtSettingsSection.Get<JwtSettings>()
+        ?? throw new Exception("JwtSettings were not found on the configuration file.");
+                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SigningKey));
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    IssuerSigningKey = signingKey
+                };
+            });
 
 
-var app = builder.Build();
-app.UseHttpsRedirection();
-app.MapControllers();
-app.Run();
+            var app = builder.Build();
+            app.UseHttpsRedirection();
+            app.MapControllers();
+            app.Run();
+        }
+    }
+}
+

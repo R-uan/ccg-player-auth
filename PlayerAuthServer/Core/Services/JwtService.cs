@@ -38,7 +38,8 @@ namespace PlayerAuthServer.Core.Services
         {
             var claimIdentity = new ClaimsIdentity();
             var emailClaim = new Claim(ClaimTypes.Email, player.Email);
-            claimIdentity.AddClaims([emailClaim]);
+            var uuidClaim = new Claim("UUID", player.UUID.ToString());
+            claimIdentity.AddClaims([emailClaim, uuidClaim]);
             return claimIdentity;
         }
     }

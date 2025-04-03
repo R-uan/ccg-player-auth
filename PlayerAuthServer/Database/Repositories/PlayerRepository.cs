@@ -20,13 +20,13 @@ namespace PlayerAuthServer.Database.Repositories
 
         public async Task<Player?> FindPlayerByEmail(string email)
                     => await (from p in dbContext.Players
-                              where p.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase)
+                              where p.Email.ToLower() == email.ToLower()
                               select p).FirstOrDefaultAsync();
 
 
         public async Task<Player?> FindPlayerByNickname(string nickname)
                     => await (from p in dbContext.Players
-                              where p.Nickname.Equals(nickname, StringComparison.CurrentCultureIgnoreCase)
+                              where p.Nickname.ToLower() == nickname.ToLower()
                               select p).FirstOrDefaultAsync();
     }
 }

@@ -1,6 +1,7 @@
 using AutoMapper;
 using PlayerAuthServer.Database.Entities;
 using PlayerAuthServer.Utilities.DataTransferObjects;
+using PlayerAuthServer.Utilities.Requests;
 
 namespace PlayerAuthServer.Utilities.Mappers
 {
@@ -9,7 +10,7 @@ namespace PlayerAuthServer.Utilities.Mappers
         public PlayerProfile()
         {
             CreateMap<Player, PlayerDto>().ReverseMap();
-            CreateMap<RegisterDto, PlayerDto>().ReverseMap();
+            CreateMap<RegisterRequest, PlayerDto>().ReverseMap();
         }
     }
 }

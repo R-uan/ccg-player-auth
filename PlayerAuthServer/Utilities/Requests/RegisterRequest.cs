@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PlayerAuthServer.Utilities.DataTransferObjects
+namespace PlayerAuthServer.Utilities.Requests
 {
-    public class RegisterDto
+    public class RegisterRequest
     {
         [EmailAddress]
         [Required(ErrorMessage = "Email required")]
@@ -15,5 +15,6 @@ namespace PlayerAuthServer.Utilities.DataTransferObjects
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters.")]
         public required string Password { get; set; }
+
     }
 }

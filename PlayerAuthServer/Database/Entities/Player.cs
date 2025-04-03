@@ -12,5 +12,6 @@ namespace PlayerAuthServer.Database.Entities
         public List<PlayerDeck>? Decks { get; set; }
         public required string Nickname { get; set; }
         public required string PasswordHash { get; set; }
+        public ICollection<PlayerDeck>? PlayerDecks { get; set; }
     }
 }

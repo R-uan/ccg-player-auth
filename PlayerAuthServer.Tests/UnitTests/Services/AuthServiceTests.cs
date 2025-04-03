@@ -6,6 +6,7 @@ using PlayerAuthServer.Core.Services;
 using PlayerAuthServer.Database.Entities;
 using PlayerAuthServer.Utilities.DataTransferObjects;
 using PlayerAuthServer.Utilities.Exceptions;
+using PlayerAuthServer.Utilities.Requests;
 
 namespace PlayerAuthServer.Tests.UnitTests.Services
 {
@@ -26,7 +27,7 @@ namespace PlayerAuthServer.Tests.UnitTests.Services
         public async Task ShouldReturnToken()
         {
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword("hash1");
-            LoginDto login = new()
+            LoginRequest login = new()
             {
                 Email = "player1@example.com",
                 Password = "hash1"
@@ -59,7 +60,7 @@ namespace PlayerAuthServer.Tests.UnitTests.Services
         [Fact]
         public async Task ShouldThrowEmailNotFoundException()
         {
-            LoginDto login = new()
+            LoginRequest login = new()
             {
                 Email = "player1@example.com",
                 Password = "hash1"
@@ -80,7 +81,7 @@ namespace PlayerAuthServer.Tests.UnitTests.Services
         public async Task ShouldThrowUnauthorizedAccessException()
         {
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword("hash1");
-            LoginDto login = new()
+            LoginRequest login = new()
             {
                 Email = "player1@example.com",
                 Password = "hash2"
@@ -115,7 +116,7 @@ namespace PlayerAuthServer.Tests.UnitTests.Services
                 PasswordHash = "protonmail",
             };
 
-            RegisterDto registerDto = new()
+            RegisterRequest registerDto = new()
             {
                 Email = "email@gmail.com",
                 Nickname = "hotmail",

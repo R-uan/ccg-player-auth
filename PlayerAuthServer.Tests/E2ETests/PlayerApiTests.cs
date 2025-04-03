@@ -1,0 +1,106 @@
+using System;
+using System.Net.Http.Json;
+using FluentAssertions;
+using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Utilities.Responses;
+
+namespace PlayerAuthServer.Tests.E2E;
+
+public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+{
+    private readonly HttpClient client = factory.CreateClient();
+
+    [Fact]
+    public async Task RegisterEndpoint_ShouldReturnRegisterResponse()
+    {
+        var request = new RegisterRequest
+        {
+            Email = "tester@protonmail.com",
+            Nickname = "Tester",
+            Password = "besttesteroutthere"
+        };
+
+        var response = await client.PostAsJsonAsync("/api/auth/register", request);
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+        var result = await response.Content.ReadFromJsonAsync<RegisterResponse>();
+
+        Assert.NotNull(result);
+        Assert.Equal(request.Email, result.Email);
+        Assert.Equal(request.Nickname, result.Nickname);
+    }
+
+    [Fact]
+    public async Task RegisterEndpoint_ShouldReturnBadRequestNickname()
+    {
+        var request = new RegisterRequest
+        {
+            Email = "tester23@protonmail.com",
+            Nickname = "Tester1",
+            Password = "besttesteroutthere"
+        };
+
+        var response = await client.PostAsJsonAsync("/api/auth/register", request);
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task RegisterEndpoint_ShouldReturnBadRequestEmail()
+    {
+        var request = new RegisterRequest
+        {
+            Email = "tester1@protonmail.com",
+            Nickname = "Tester32",
+            Password = "besttesteroutthere"
+        };
+
+        var response = await client.PostAsJsonAsync("/api/auth/register", request);
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task LoginEndpoint_ShouldReturnLoginResponse()
+    {
+        var request = new LoginRequest
+        {
+            Email = "tester1@protonmail.com",
+            Password = "Tester1"
+        };
+
+        var response = await client.PostAsJsonAsync("/api/auth/login", request);
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+        var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+        Assert.NotNull(result);
+        Assert.NotEmpty(result.Token);
+    }
+
+    [Fact]
+    public async Task LoginEndpoint_ShouldReturnUnauthorizedEmail()
+    {
+        var request = new LoginRequest
+        {
+            Email = "tester1@wrongmail.com",
+            Password = "Tester1"
+        };
+
+        var response = await client.PostAsJsonAsync("/api/auth/login", request);
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
+    public async Task LoginEndpoint_ShouldReturnUnauthorizedPassword()
+    {
+        var request = new LoginRequest
+        {
+            Email = "tester1@protonmail.com",
+            Password = "wrongpassword"
+        };
+
+        var response = await client.PostAsJsonAsync("/api/auth/login", request);
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
+    }
+
+
+}
+

@@ -16,6 +16,10 @@ namespace PlayerAuthServer.Database
                 player.Property(p => p.UUID)
                     .HasDefaultValueSql("gen_random_uuid()");
                 player.HasKey(p => p.UUID);
+                player.HasMany(p => p.PlayerDecks)
+                    .WithOne(d => d.Player)
+                    .HasForeignKey(d => d.PlayerGuid)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<PlayerDeck>(decks =>
