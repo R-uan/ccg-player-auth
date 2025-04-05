@@ -37,24 +37,28 @@ namespace PlayerAuthServer
             builder.Services.AddScoped<IPlayerDeckService, PlayerDeckService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
             {
                 var jwtSettings = jwtSettingsSection.Get<JwtSettings>()
-        ?? throw new Exception("JwtSettings were not found on the configuration file.");
+                    ?? throw new Exception("JwtSettings were not found on the configuration file.");
+
                 var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SigningKey));
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    IssuerSigningKey = signingKey,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtSettings.Issuer,
-                    IssuerSigningKey = signingKey
                 };
             });
 
 
             var app = builder.Build();
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.MapControllers();
             app.Run();
         }

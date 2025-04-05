@@ -9,9 +9,8 @@ namespace PlayerAuthServer.Database.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UUID { get; set; }
         public required string Email { get; set; }
-        public List<PlayerDeck>? Decks { get; set; }
         public required string Nickname { get; set; }
         public required string PasswordHash { get; set; }
-        public ICollection<PlayerDeck>? PlayerDecks { get; set; }
+        public ICollection<PlayerDeck>? Decks { get; set; }
     }
 }
