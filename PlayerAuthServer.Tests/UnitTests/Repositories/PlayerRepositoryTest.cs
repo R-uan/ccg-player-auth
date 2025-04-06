@@ -1,7 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using PlayerAuthServer.Core.Interfaces;
 using PlayerAuthServer.Database;
-using PlayerAuthServer.Database.Entities;
+using PlayerAuthServer.Entities;
+using Microsoft.EntityFrameworkCore;
 using PlayerAuthServer.Database.Repositories;
 
 namespace PlayerAuthServer.Tests.UnitTests.Repositories
@@ -20,11 +19,11 @@ namespace PlayerAuthServer.Tests.UnitTests.Repositories
 
             var players = new List<Player>
             {
-                new() { Email = "player1@example.com", Nickname = "PlayerOne", PasswordHash = "hash1", Decks = new List<PlayerDeck>() },
-                new() { Email = "player2@example.com", Nickname = "PlayerTwo", PasswordHash = "hash2", Decks = new List<PlayerDeck>() },
-                new() { Email = "player3@example.com", Nickname = "PlayerThree", PasswordHash = "hash3", Decks = new List<PlayerDeck>() },
-                new() { Email = "player4@example.com", Nickname = "PlayerFour", PasswordHash = "hash4", Decks = new List<PlayerDeck>() },
-                new() { Email = "player5@example.com", Nickname = "PlayerFive", PasswordHash = "hash5", Decks = new List<PlayerDeck>() }
+                new() { Email = "player1@example.com", Username = "PlayerOne", PasswordHash = "hash1", Decks = new List<PlayerDeck>() },
+                new() { Email = "player2@example.com", Username = "PlayerTwo", PasswordHash = "hash2", Decks = new List<PlayerDeck>() },
+                new() { Email = "player3@example.com", Username = "PlayerThree", PasswordHash = "hash3", Decks = new List<PlayerDeck>() },
+                new() { Email = "player4@example.com", Username = "PlayerFour", PasswordHash = "hash4", Decks = new List<PlayerDeck>() },
+                new() { Email = "player5@example.com", Username = "PlayerFive", PasswordHash = "hash5", Decks = new List<PlayerDeck>() }
             };
 
             this.playerDbContext.Players.AddRange(players);
@@ -32,16 +31,16 @@ namespace PlayerAuthServer.Tests.UnitTests.Repositories
         }
 
         [Fact]
-        public async Task ShouldFindPlayerByNickname()
+        public async Task ShouldFindPlayerByUsername()
         {
-            var player = await this.playerRepository.FindPlayerByNickname("playerone");
+            var player = await this.playerRepository.FindPlayerByUsername("playerone");
             Assert.NotNull(player);
         }
 
         [Fact]
-        public async Task ShouldNotFindPlayerByNickname()
+        public async Task ShouldNotFindPlayerByUsername()
         {
-            var player = await this.playerRepository.FindPlayerByNickname("notexist");
+            var player = await this.playerRepository.FindPlayerByUsername("notexist");
             Assert.Null(player);
         }
 
@@ -62,11 +61,11 @@ namespace PlayerAuthServer.Tests.UnitTests.Repositories
         [Fact]
         public async Task ShouldFindPlayerByGuid()
         {
-            Player newPlayer = new() { Email = "wen@wen.wen", Nickname = "wen", PasswordHash = "wen" };
+            Player newPlayer = new() { Email = "wen@wen.wen", Username = "wen", PasswordHash = "wen" };
             var playerEntity = await this.playerDbContext.Players.AddAsync(newPlayer);
             await this.playerDbContext.SaveChangesAsync();
-            var playerUuid = playerEntity.Entity.UUID;
-            var player = await this.playerRepository.FindPlayer(playerUuid);
+            var playerId = playerEntity.Entity.Id;
+            var player = await this.playerRepository.FindPlayer(playerId);
             Assert.NotNull(player);
         }
 
@@ -80,8 +79,8 @@ namespace PlayerAuthServer.Tests.UnitTests.Repositories
         [Fact]
         public async Task ShouldCreatePlayerEntity()
         {
-            Player newPlayer = new() { Email = "new@new.new", Nickname = "new", PasswordHash = "wen" };
-            var player = await this.playerRepository.CreatePlayer(newPlayer);
+            Player newPlayer = new() { Email = "new@new.new", Username = "new", PasswordHash = "wen" };
+            var player = await this.playerRepository.Save(newPlayer);
             Assert.NotNull(player);
             Assert.IsType<Player>(player);
         }

@@ -1,10 +1,9 @@
-using System;
-using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlayerAuthServer.Database;
+using PlayerAuthServer.Entities;
 
 namespace PlayerAuthServer.Tests.E2E
 {
@@ -28,16 +27,16 @@ namespace PlayerAuthServer.Tests.E2E
         private void SeedPlayerData(PlayerDbContext playerDbContext)
         {
             playerDbContext.Players.AddRange(
-                new Database.Entities.Player
+                new Player
                 {
                     Email = "tester1@protonmail.com",
-                    Nickname = "tester1",
+                    Username = "tester1",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("Tester1")
                 },
-                new Database.Entities.Player
+                new Player
                 {
                     Email = "tester2@protonmail.com",
-                    Nickname = "tester2",
+                    Username = "tester2",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("Tester2")
                 }
             );

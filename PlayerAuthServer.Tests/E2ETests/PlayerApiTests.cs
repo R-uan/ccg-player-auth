@@ -16,7 +16,7 @@ public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture
         var request = new RegisterRequest
         {
             Email = "tester@protonmail.com",
-            Nickname = "Tester",
+            Username = "Tester",
             Password = "besttesteroutthere"
         };
 
@@ -26,17 +26,17 @@ public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture
         var result = await response.Content.ReadFromJsonAsync<RegisterResponse>();
 
         Assert.NotNull(result);
-        Assert.Equal(request.Email, result.Email);
-        Assert.Equal(request.Nickname, result.Nickname);
+        Assert.Equal(request.Email, result.Player.Email);
+        Assert.Equal(request.Username, result.Player.Username);
     }
 
     [Fact]
-    public async Task RegisterEndpoint_ShouldReturnBadRequestNickname()
+    public async Task RegisterEndpoint_ShouldReturnBadRequestUsername()
     {
         var request = new RegisterRequest
         {
             Email = "tester23@protonmail.com",
-            Nickname = "Tester1",
+            Username = "Tester1",
             Password = "besttesteroutthere"
         };
 
@@ -50,7 +50,7 @@ public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture
         var request = new RegisterRequest
         {
             Email = "tester1@protonmail.com",
-            Nickname = "Tester32",
+            Username = "Tester32",
             Password = "besttesteroutthere"
         };
 

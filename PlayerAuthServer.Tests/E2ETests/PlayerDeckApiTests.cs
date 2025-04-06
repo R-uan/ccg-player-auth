@@ -2,6 +2,7 @@ using System;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using FluentAssertions;
+using MongoDB.Bson;
 using PlayerAuthServer.Tests.E2E;
 using PlayerAuthServer.Utilities.Requests;
 using PlayerAuthServer.Utilities.Responses;
@@ -26,7 +27,7 @@ public class PlayerDeckApiTests(CustomWebApplicationFactory factory) : IClassFix
 
         Assert.NotNull(loginResult);
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginResult.Token);
-        var deckLinkRequest = await client.PostAsJsonAsync("/api/deck", new LinkDeckRequest { DeckUUID = Guid.NewGuid() });
+        var deckLinkRequest = await client.PostAsJsonAsync("/api/deck", new LinkDeckRequest { DeckId = ObjectId.GenerateNewId() });
         deckLinkRequest.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
     }
 }
