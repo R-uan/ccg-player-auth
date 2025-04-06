@@ -1,9 +1,8 @@
-using System;
-
-namespace PlayerAuthServer.Utilities.Requests;
-
-public class LoginRequest
+namespace PlayerAuthServer.Utilities.Requests
 {
-    public required string Email { get; set; }
-    public required string Password { get; set; }
+    public class LoginRequest
+    {
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+    }
 }

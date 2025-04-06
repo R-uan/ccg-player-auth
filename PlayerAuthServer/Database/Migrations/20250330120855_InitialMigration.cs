@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -9,47 +10,49 @@ namespace PlayerAuthServer.Database.Migrations
     public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
+        [ExcludeFromCodeCoverage]
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "players",
                 columns: table => new
                 {
-                    UUID = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<Guid>(type: "Id", nullable: false, defaultValueSql: "gen_random_Id()"),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Nickname = table.Column<string>(type: "text", nullable: false),
+                    Username = table.Column<string>(type: "text", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_players", x => x.UUID);
+                    table.PrimaryKey("PK_players", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "player_decks",
                 columns: table => new
                 {
-                    DeckGuid = table.Column<Guid>(type: "uuid", nullable: false),
-                    PlayerGuid = table.Column<Guid>(type: "uuid", nullable: false),
-                    PlayerUUID = table.Column<Guid>(type: "uuid", nullable: true)
+                    DeckGuid = table.Column<Guid>(type: "Id", nullable: false),
+                    PlayerGuid = table.Column<Guid>(type: "Id", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "Id", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_player_decks", x => new { x.PlayerGuid, x.DeckGuid });
                     table.ForeignKey(
-                        name: "FK_player_decks_players_PlayerUUID",
-                        column: x => x.PlayerUUID,
+                        name: "FK_player_decks_players_PlayerId",
+                        column: x => x.PlayerId,
                         principalTable: "players",
-                        principalColumn: "UUID");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_player_decks_PlayerUUID",
+                name: "IX_player_decks_PlayerId",
                 table: "player_decks",
-                column: "PlayerUUID");
+                column: "PlayerId");
         }
 
         /// <inheritdoc />
+        [ExcludeFromCodeCoverage]
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

@@ -1,12 +1,10 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
+using System.Security.Claims;
+using PlayerAuthServer.Utilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PlayerAuthServer.Core.Interfaces;
-using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Utilities;
+using System.IdentityModel.Tokens.Jwt;
+using PlayerAuthServer.Entities;
 
 namespace PlayerAuthServer.Core.Services
 {
@@ -34,12 +32,17 @@ namespace PlayerAuthServer.Core.Services
             return handler.WriteToken(token);
         }
 
+        /// <summary>
+        /// Creates a <see cref="ClaimsIdentity"/> with claims for the player’s email and ID.
+        /// </summary>
+        /// <param name="player">The player entity to extract claims from.</param>
+        /// <returns>A claims identity used for token generation.</returns>
         private static ClaimsIdentity GenerateIdentity(Player player)
         {
             var claimIdentity = new ClaimsIdentity();
             var emailClaim = new Claim(ClaimTypes.Email, player.Email);
-            var uuidClaim = new Claim("UUID", player.UUID.ToString());
-            claimIdentity.AddClaims([emailClaim, uuidClaim]);
+            var IdClaim = new Claim("Id", player.Id.ToString());
+            claimIdentity.AddClaims([emailClaim, IdClaim]);
             return claimIdentity;
         }
     }

@@ -1,5 +1,6 @@
+using PlayerAuthServer.Entities;
+using PlayerAuthServer.Utilities;
 using Microsoft.EntityFrameworkCore;
-using PlayerAuthServer.Database.Entities;
 
 namespace PlayerAuthServer.Database
 {
@@ -13,19 +14,20 @@ namespace PlayerAuthServer.Database
             modelBuilder.Entity<Player>(player =>
             {
                 player.ToTable("players");
-                player.Property(p => p.UUID)
-                    .HasDefaultValueSql("gen_random_uuid()");
-                player.HasKey(p => p.UUID);
+                player.Property(p => p.Id)
+                    .HasDefaultValueSql("gen_random_Id()");
+                player.HasKey(p => p.Id);
                 player.HasMany(p => p.Decks)
                     .WithOne(d => d.Player)
-                    .HasForeignKey(d => d.PlayerGuid)
+                    .HasForeignKey(d => d.PlayerId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<PlayerDeck>(decks =>
             {
                 decks.ToTable("player_decks");
-                decks.HasKey(deck => new { deck.PlayerGuid, deck.DeckGuid });
+                decks.HasKey(deck => new { deck.PlayerId, deck.DeckId });
+                decks.Property(deck => deck.DeckId).HasConversion(new ObjectIdToStringConverter());
             });
 
             base.OnModelCreating(modelBuilder);

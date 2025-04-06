@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PlayerAuthServer.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Core.Services;
 
 namespace PlayerAuthServer.Core.Controllers
 {
@@ -11,14 +11,11 @@ namespace PlayerAuthServer.Core.Controllers
     {
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AssociatePlayerDeck([FromBody] LinkDeckRequest request)
+        public async Task<IActionResult> RegisterPlayerDeck([FromBody] LinkDeckRequest request)
         {
-            var playerUUIDClaim = User.FindFirst("UUID")?.Value;
-            if (Guid.TryParse(playerUUIDClaim, out var pUUID))
-            {
-                var association = await playerDeckService.LinkPlayerDeck(pUUID, request.DeckUUID);
-                return Ok(association);
-            }
+            var playerIdClaim = User.FindFirst("Id")?.Value;
+            if (Guid.TryParse(playerIdClaim, out var playerId))
+                return Ok(await playerDeckService.LinkPlayerDeckAsync(playerId, request.DeckId));
             else return Unauthorized("Unable to get claim from token");
         }
     }

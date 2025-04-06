@@ -4,7 +4,6 @@ using PlayerAuthServer.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Core.Interfaces;
 using PlayerAuthServer.Database.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 

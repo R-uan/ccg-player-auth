@@ -1,22 +1,18 @@
-using System;
-using PlayerAuthServer.Core.Interfaces;
-using PlayerAuthServer.Database.Entities;
+using MongoDB.Bson;
+using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Entities;
 using PlayerAuthServer.Utilities.Exceptions;
 
 namespace PlayerAuthServer.Core.Services
 {
-    public class PlayerDeckService(IPlayerService playerService, IPlayerDeckRepository playerDeckRepository) : IPlayerDeckService
+    public class PlayerDeckService(IPlayerRepository playerRepository, IPlayerDeckRepository playerDeckRepository) : IPlayerDeckService
     {
-        public async Task<PlayerDeck> LinkPlayerDeck(Guid playerUUID, Guid deckUUID)
+        public async Task<PlayerDeck> LinkPlayerDeckAsync(Guid playerId, ObjectId deckId)
         {
-            var player = await playerService.FindPlayer(playerUUID) ??
-                throw new PlayerNotFoundException("Player UUID not found in the database");
-
-            return await playerDeckRepository.LinkDeck(new()
-            {
-                DeckGuid = deckUUID,
-                PlayerGuid = player.UUID
-            });
+            var _ = await playerRepository.FindPlayer(playerId)
+                ?? throw new PlayerNotFoundException("Unable to find player with the given ID.");
+            var playerDeck = new PlayerDeck(deckId, playerId);
+            return await playerDeckRepository.Save(playerDeck);
         }
     }
 }

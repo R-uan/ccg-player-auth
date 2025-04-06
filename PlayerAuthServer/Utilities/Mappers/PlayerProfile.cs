@@ -1,6 +1,6 @@
 using AutoMapper;
-using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Utilities.DataTransferObjects;
+using PlayerAuthServer.Entities;
+using PlayerAuthServer.Entities.Models;
 using PlayerAuthServer.Utilities.Requests;
 
 namespace PlayerAuthServer.Utilities.Mappers
@@ -9,8 +9,12 @@ namespace PlayerAuthServer.Utilities.Mappers
     {
         public PlayerProfile()
         {
-            CreateMap<Player, PlayerDto>().ReverseMap();
-            CreateMap<RegisterRequest, PlayerDto>().ReverseMap();
+            CreateMap<Player, PlayerDto>();
+            CreateMap<RegisterRequest, NewPlayer>()
+                .ForMember(
+                    dest => dest.PasswordHash,
+                    opt => opt.MapFrom(src => Bcrypt.HashPassword(src.Password))
+                );
         }
     }
 }

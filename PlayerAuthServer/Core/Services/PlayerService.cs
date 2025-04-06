@@ -1,32 +1,24 @@
-using AutoMapper;
-using PlayerAuthServer.Core.Interfaces;
-using PlayerAuthServer.Database.Entities;
-using PlayerAuthServer.Utilities.Exceptions;
-using PlayerAuthServer.Utilities.DataTransferObjects;
+using PlayerAuthServer.Entities;
+using PlayerAuthServer.Entities.Models;
+using PlayerAuthServer.Database.Repositories;
 
 namespace PlayerAuthServer.Core.Services
 {
-    public class PlayerService(IPlayerRepository repository, IMapper _mapper) : IPlayerService
+    public class PlayerService(IPlayerRepository playerRepository) : IPlayerService
     {
-        public async Task<PlayerDto> CreatePlayer(PlayerDto playerDto)
+        public async Task<Player> CreatePlayerWithDefaults(NewPlayer newPlayer)
         {
-            if (!(await repository.FindPlayerByEmail(playerDto.Email) == null))
-                throw new DuplicateEmailException(playerDto.Email);
-            if (!(await repository.FindPlayerByNickname(playerDto.Nickname) == null))
-                throw new DuplicateNicknameException(playerDto.Nickname);
+            var player = new Player
+            {
+                Email = newPlayer.Email,
+                Username = newPlayer.Username,
+                PasswordHash = newPlayer.PasswordHash,
+            };
 
-            var player = _mapper.Map<Player>(playerDto);
-            var result = await repository.CreatePlayer(player);
-            return _mapper.Map<PlayerDto>(result);
+            // Need to add default decks (I'll do it later chill)
+
+            var createdPlayer = await playerRepository.Save(player);
+            return createdPlayer;
         }
-
-        public async Task<Player?> FindPlayer(Guid uuid)
-            => await repository.FindPlayer(uuid);
-
-        public async Task<Player?> FindPlayerByEmail(string email)
-            => await repository.FindPlayerByEmail(email);
-
-        public async Task<Player?> FindPlayerByNickname(string nickname)
-            => await repository.FindPlayerByNickname(nickname);
     }
 }

@@ -1,6 +1,6 @@
 namespace PlayerAuthServer.Utilities.Exceptions
 {
-    public class DuplicateNicknameException(string message) : Exception(message)
+    public class DuplicateUsernameException(string message) : Exception(message)
     {
     }
 }

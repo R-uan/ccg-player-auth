@@ -1,23 +1,30 @@
-using System;
+using PlayerAuthServer.Entities;
 using Microsoft.EntityFrameworkCore;
-using PlayerAuthServer.Core.Interfaces;
-using PlayerAuthServer.Database.Entities;
 
-namespace PlayerAuthServer.Database.Repositories;
-
-public class PlayerDeckRepository(PlayerDbContext dbContext) : IPlayerDeckRepository
+namespace PlayerAuthServer.Database.Repositories
 {
-    public async Task<PlayerDeck> LinkDeck(PlayerDeck entity)
+    public class PlayerDeckRepository(PlayerDbContext dbContext) : IPlayerDeckRepository
     {
-        var add = await dbContext.PlayerDecks.AddAsync(entity);
-        var save = await dbContext.SaveChangesAsync();
-        return save > 0 ? add.Entity : throw new DbUpdateException("Could not save entity");
-    }
+        public async Task<PlayerDeck> Save(PlayerDeck entity)
+        {
+            var entry = await dbContext.PlayerDecks.AddAsync(entity);
+            var affectedRows = await dbContext.SaveChangesAsync();
 
-    public async Task<bool> UnlinkDeck(PlayerDeck entity)
-    {
-        dbContext.PlayerDecks.Remove(entity);
-        var save = await dbContext.SaveChangesAsync();
-        return save > 0;
+            if (affectedRows <= 0)
+                throw new DbUpdateException("Could not save PlayerDeck entity.");
+
+            return entry.Entity;
+        }
+
+        public async Task<bool> Delete(PlayerDeck entity)
+        {
+            dbContext.PlayerDecks.Remove(entity);
+            var affectedRows = await dbContext.SaveChangesAsync();
+
+            if (affectedRows <= 0)
+                throw new DbUpdateException("Could not delete PlayerDeck entity");
+
+            return true;
+        }
     }
 }

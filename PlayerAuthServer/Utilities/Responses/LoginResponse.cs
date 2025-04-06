@@ -1,8 +1,7 @@
-using System;
-
-namespace PlayerAuthServer.Utilities.Responses;
-
-public class LoginResponse
+namespace PlayerAuthServer.Utilities.Responses
 {
-    public required string Token { get; set; }
+    public class LoginResponse
+    {
+        public required string Token { get; set; }
+    }
 }

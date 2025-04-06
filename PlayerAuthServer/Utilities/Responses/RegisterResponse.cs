@@ -1,9 +1,9 @@
-using System;
+using PlayerAuthServer.Entities.Models;
 
-namespace PlayerAuthServer.Utilities.Responses;
-
-public class RegisterResponse
+namespace PlayerAuthServer.Utilities.Responses
 {
-    public required string Email { get; set; }
-    public required string Nickname { get; set; }
+    public class RegisterResponse(PlayerDto player)
+    {
+        public PlayerDto Player { get; set; } = player;
+    }
 }
