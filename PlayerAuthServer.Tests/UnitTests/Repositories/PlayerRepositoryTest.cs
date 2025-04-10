@@ -80,7 +80,7 @@ namespace PlayerAuthServer.Tests.UnitTests.Repositories
         public async Task ShouldCreatePlayerEntity()
         {
             Player newPlayer = new() { Email = "new@new.new", Username = "new", PasswordHash = "wen" };
-            var player = await this.playerRepository.Save(newPlayer);
+            var player = await this.playerRepository.SavePlayer(newPlayer);
             Assert.NotNull(player);
             Assert.IsType<Player>(player);
         }

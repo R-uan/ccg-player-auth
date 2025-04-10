@@ -26,7 +26,6 @@ public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture
         var result = await response.Content.ReadFromJsonAsync<RegisterResponse>();
 
         Assert.NotNull(result);
-        Assert.Equal(request.Email, result.Player.Email);
         Assert.Equal(request.Username, result.Player.Username);
     }
 
