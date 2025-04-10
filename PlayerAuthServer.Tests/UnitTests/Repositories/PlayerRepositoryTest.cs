@@ -19,11 +19,11 @@ namespace PlayerAuthServer.Tests.UnitTests.Repositories
 
             var players = new List<Player>
             {
-                new() { Email = "player1@example.com", Username = "PlayerOne", PasswordHash = "hash1", Decks = new List<PlayerDeck>() },
-                new() { Email = "player2@example.com", Username = "PlayerTwo", PasswordHash = "hash2", Decks = new List<PlayerDeck>() },
-                new() { Email = "player3@example.com", Username = "PlayerThree", PasswordHash = "hash3", Decks = new List<PlayerDeck>() },
-                new() { Email = "player4@example.com", Username = "PlayerFour", PasswordHash = "hash4", Decks = new List<PlayerDeck>() },
-                new() { Email = "player5@example.com", Username = "PlayerFive", PasswordHash = "hash5", Decks = new List<PlayerDeck>() }
+                new() { Email = "player1@example.com", Username = "PlayerOne", PasswordHash = "hash1",  },
+                new() { Email = "player2@example.com", Username = "PlayerTwo", PasswordHash = "hash2",  },
+                new() { Email = "player3@example.com", Username = "PlayerThree", PasswordHash = "hash3",  },
+                new() { Email = "player4@example.com", Username = "PlayerFour", PasswordHash = "hash4",  },
+                new() { Email = "player5@example.com", Username = "PlayerFive", PasswordHash = "hash5",  }
             };
 
             this.playerDbContext.Players.AddRange(players);

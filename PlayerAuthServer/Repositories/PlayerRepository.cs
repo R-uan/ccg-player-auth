@@ -9,17 +9,14 @@ namespace PlayerAuthServer.Database.Repositories
         {
             var entry = await dbContext.Players.AddAsync(player);
             int affectedRows = await dbContext.SaveChangesAsync();
-
-            if (affectedRows <= 0)
-                throw new DbUpdateException("Could not insert Player entity.");
-
+            if (affectedRows <= 0) throw new DbUpdateException("Could not insert Player entity.");
             return entry.Entity;
         }
 
         public async Task<Player?> FindPlayer(Guid Id)
-            => await (from p in dbContext.Players
-                      where p.Id == Id
-                      select p).FirstOrDefaultAsync();
+            => await dbContext.Players
+                        .Include(p => p.CardCollection)
+                        .FirstOrDefaultAsync(p => p.Id == Id);
 
         public async Task<Player?> FindPlayerByEmail(string email)
                     => await (from p in dbContext.Players

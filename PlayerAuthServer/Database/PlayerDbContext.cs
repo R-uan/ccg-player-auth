@@ -1,13 +1,14 @@
 using PlayerAuthServer.Entities;
 using PlayerAuthServer.Utilities;
 using Microsoft.EntityFrameworkCore;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Database
 {
     public class PlayerDbContext(DbContextOptions<PlayerDbContext> options) : DbContext(options)
     {
         public DbSet<Player> Players { get; set; }
-        public DbSet<PlayerDeck> PlayerDecks { get; set; }
+        public DbSet<CardCollection> CardCollection { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -15,19 +16,19 @@ namespace PlayerAuthServer.Database
             {
                 player.ToTable("players");
                 player.Property(p => p.Id)
-                    .HasDefaultValueSql("gen_random_Id()");
+                    .HasDefaultValueSql("gen_random_uuid()");
                 player.HasKey(p => p.Id);
-                player.HasMany(p => p.Decks)
+                player.HasMany(p => p.CardCollection)
                     .WithOne(d => d.Player)
                     .HasForeignKey(d => d.PlayerId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<PlayerDeck>(decks =>
+            modelBuilder.Entity<CardCollection>(cards =>
             {
-                decks.ToTable("player_decks");
-                decks.HasKey(deck => new { deck.PlayerId, deck.DeckId });
-                decks.Property(deck => deck.DeckId).HasConversion(new ObjectIdToStringConverter());
+                cards.ToTable("card_collection");
+                cards.HasKey(card => new { card.PlayerId, card.CardId });
+                cards.Property(card => card.CardId);
             });
 
             base.OnModelCreating(modelBuilder);
