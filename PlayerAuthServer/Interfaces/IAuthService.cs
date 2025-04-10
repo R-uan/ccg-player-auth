@@ -1,4 +1,5 @@
 using PlayerAuthServer.Entities.Models;
+using PlayerAuthServer.Models;
 using PlayerAuthServer.Utilities.Requests;
 
 namespace PlayerAuthServer.Core.Services
@@ -21,7 +22,7 @@ namespace PlayerAuthServer.Core.Services
         /// <returns>Basic player data (DTO)</returns>
         /// <exception cref="DuplicateEmailException"/>
         /// <exception cref="DuplicateUsernameException"/>
-        Task<PlayerDto> RegisterNewPlayer(NewPlayer newPlayer);
+        Task<PartialPlayerProfile> RegisterNewPlayer(RegisterRequest newPlayer);
     }
 
 }

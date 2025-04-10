@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlayerAuthServer.Core.Services;
 using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Core.Controllers
 {
@@ -17,10 +18,17 @@ namespace PlayerAuthServer.Core.Controllers
             if (Guid.TryParse(idClaim, out var playerId))
             {
                 var player = await playerRepository.FindPlayer(playerId);
-                return player != null ? Ok(player) : NotFound();
+                return player != null ? Ok(PlayerProfile.Create(player)) : NotFound();
             }
 
             return Unauthorized();
+        }
+
+        [HttpGet("partial/{playerId}")]
+        public async Task<IActionResult> GetPartialPlayerProfileProfile(Guid playerId)
+        {
+            var player = await playerService.GetPartialPlayerProfileAsync(playerId);
+            return player != null ? Ok(player) : NotFound();
         }
     }
 }

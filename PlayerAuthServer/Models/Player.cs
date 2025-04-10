@@ -1,8 +1,8 @@
+using PlayerAuthServer.Models;
+using System.Text.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PlayerAuthServer.Models;
-using System.Text.Json.Serialization;
 
 namespace PlayerAuthServer.Entities
 {

@@ -10,7 +10,7 @@ namespace PlayerAuthServer.Core.Controllers
 {
     [ApiController]
     [Route("api/auth")]
-    public class AuthController(IAuthService service, IMapper mapper) : ControllerBase
+    public class AuthController(IAuthService service) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest login)
@@ -45,8 +45,7 @@ namespace PlayerAuthServer.Core.Controllers
         {
             try
             {
-                var newPlayer = mapper.Map<NewPlayer>(request);
-                var registeredPlayer = await service.RegisterNewPlayer(newPlayer);
+                var registeredPlayer = await service.RegisterNewPlayer(request);
                 var response = new RegisterResponse(registeredPlayer);
                 return Ok(response);
             }

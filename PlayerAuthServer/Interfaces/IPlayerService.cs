@@ -1,5 +1,6 @@
 using PlayerAuthServer.Entities;
 using PlayerAuthServer.Entities.Models;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Core.Services
 {
@@ -16,5 +17,6 @@ namespace PlayerAuthServer.Core.Services
         /// <exception cref="DuplicateEmailException">Thrown when the email is already registered.</exception>
         /// <exception cref="DuplicateUsernameException">Thrown when the username is already taken.</exception>
         Task<Player> CreatePlayerWithDefaults(NewPlayer newPlayer);
+        Task<PartialPlayerProfile?> GetPartialPlayerProfileAsync(Guid playerId);
     }
 }

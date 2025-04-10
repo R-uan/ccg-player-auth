@@ -5,7 +5,7 @@ namespace PlayerAuthServer.Database.Repositories
 {
     public class PlayerRepository(PlayerDbContext dbContext) : IPlayerRepository
     {
-        public async Task<Player> Save(Player player)
+        public async Task<Player> SavePlayer(Player player)
         {
             var entry = await dbContext.Players.AddAsync(player);
             int affectedRows = await dbContext.SaveChangesAsync();

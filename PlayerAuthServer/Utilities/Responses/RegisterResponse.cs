@@ -1,9 +1,10 @@
 using PlayerAuthServer.Entities.Models;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Utilities.Responses
 {
-    public class RegisterResponse(PlayerDto player)
+    public class RegisterResponse(PartialPlayerProfile player)
     {
-        public PlayerDto Player { get; set; } = player;
+        public PartialPlayerProfile Player { get; set; } = player;
     }
 }

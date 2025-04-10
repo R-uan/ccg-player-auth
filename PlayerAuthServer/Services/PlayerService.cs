@@ -1,6 +1,7 @@
 using PlayerAuthServer.Entities;
 using PlayerAuthServer.Entities.Models;
 using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Core.Services
 {
@@ -17,8 +18,15 @@ namespace PlayerAuthServer.Core.Services
 
             // Need to add default decks (I'll do it later chill)
 
-            var createdPlayer = await playerRepository.Save(player);
+            var createdPlayer = await playerRepository.SavePlayer(player);
             return createdPlayer;
+        }
+
+        public async Task<PartialPlayerProfile?> GetPartialPlayerProfileAsync(Guid playerId)
+        {
+            var player = await playerRepository.FindPlayer(playerId);
+            if (player == null) return null;
+            return PartialPlayerProfile.Create(player);
         }
     }
 }

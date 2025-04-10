@@ -3,11 +3,11 @@ using PlayerAuthServer.Utilities.Requests;
 using PlayerAuthServer.Utilities.Exceptions;
 using PlayerAuthServer.Entities.Models;
 using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Core.Services
 {
     public class AuthService(
-        IMapper mapper,
         IJwtService jwtService,
         IPlayerService playerService,
         IPlayerRepository playerRepository) : IAuthService
@@ -25,16 +25,17 @@ namespace PlayerAuthServer.Core.Services
             return jwtService.GenerateToken(player);
         }
 
-        public async Task<PlayerDto> RegisterNewPlayer(NewPlayer newPlayer)
+        public async Task<PartialPlayerProfile> RegisterNewPlayer(RegisterRequest request)
         {
-            if (await playerRepository.FindPlayerByEmail(newPlayer.Email) is not null)
+            if (await playerRepository.FindPlayerByEmail(request.Email) is not null)
                 throw new DuplicateEmailException("Email already registered");
 
-            if (await playerRepository.FindPlayerByUsername(newPlayer.Username) is not null)
-                throw new DuplicateUsernameException(newPlayer.Username);
+            if (await playerRepository.FindPlayerByUsername(request.Username) is not null)
+                throw new DuplicateUsernameException(request.Username);
 
+            var newPlayer = NewPlayer.Create(request);
             var savedPlayer = await playerService.CreatePlayerWithDefaults(newPlayer);
-            return mapper.Map<PlayerDto>(savedPlayer);
+            return PartialPlayerProfile.Create(savedPlayer);
         }
     }
 }

@@ -1,8 +1,6 @@
 using PlayerAuthServer.Models;
 using PlayerAuthServer.Interfaces;
 using PlayerAuthServer.Utilities.Requests;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Utilities.Exceptions;
 using PlayerAuthServer.Database.Repositories;
 
 namespace PlayerAuthServer.Services
