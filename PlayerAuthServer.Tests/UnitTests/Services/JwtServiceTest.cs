@@ -1,9 +1,8 @@
-using System;
-using Microsoft.Extensions.Options;
 using Moq;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Entities;
 using PlayerAuthServer.Utilities;
+using Microsoft.Extensions.Options;
+using PlayerAuthServer.Services;
+using PlayerAuthServer.Models;
 
 namespace PlayerAuthServer.Tests.UnitTests.Services
 {

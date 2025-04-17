@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using PlayerAuthServer.Utilities;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Utilities.Requests;
-using PlayerAuthServer.Utilities.Responses;
+using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Exceptions;
+using PlayerAuthServer.Models.Responses;
 using PlayerAuthServer.Utilities.Exceptions;
+using PlayerAuthServer.Models.Requests;
 
-namespace PlayerAuthServer.Core.Controllers
+namespace PlayerAuthServer.Controllers
 {
     [ApiController]
     [Route("api/auth")]

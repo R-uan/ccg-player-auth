@@ -1,6 +1,4 @@
-namespace PlayerAuthServer.Utilities.Exceptions
+namespace PlayerAuthServer.Exceptions
 {
-    public class DuplicateEmailException(string message) : Exception(message)
-    {
-    }
+    public class DuplicateEmailException(string message = "Email already in use.") : Exception(message) { }
 }

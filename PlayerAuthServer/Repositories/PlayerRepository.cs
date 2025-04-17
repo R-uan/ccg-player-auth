@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using PlayerAuthServer.Entities;
+using PlayerAuthServer.Database;
+using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Models;
 
-namespace PlayerAuthServer.Database.Repositories
+namespace PlayerAuthServer.Repositories
 {
     public class PlayerRepository(PlayerDbContext dbContext) : IPlayerRepository
     {

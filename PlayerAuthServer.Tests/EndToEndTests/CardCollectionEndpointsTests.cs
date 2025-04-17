@@ -1,12 +1,11 @@
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Interfaces;
+using System.Net.Http.Json;
+using System.Net.Http.Headers;
 using PlayerAuthServer.Models;
-using PlayerAuthServer.Utilities;
-using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using PlayerAuthServer.Models.Requests;
+using PlayerAuthServer.Models.Responses;
 
 namespace PlayerAuthServer.Tests.EndToEndTests
 {

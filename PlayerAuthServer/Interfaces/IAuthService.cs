@@ -1,8 +1,7 @@
-using PlayerAuthServer.Entities.Models;
 using PlayerAuthServer.Models;
-using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Models.Requests;
 
-namespace PlayerAuthServer.Core.Services
+namespace PlayerAuthServer.Interfaces
 {
     public interface IAuthService
     {

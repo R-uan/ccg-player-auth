@@ -1,5 +1,3 @@
-using PlayerAuthServer.Entities;
-
 namespace PlayerAuthServer.Models
 {
     public class PartialPlayerProfile

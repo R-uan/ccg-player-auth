@@ -1,6 +1,6 @@
-using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Models.Requests;
 
-namespace PlayerAuthServer.Entities.Models
+namespace PlayerAuthServer.Models
 {
     public class NewPlayer
     {

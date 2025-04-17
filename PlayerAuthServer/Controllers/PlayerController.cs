@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Interfaces;
 using PlayerAuthServer.Models;
 
-namespace PlayerAuthServer.Core.Controllers
+namespace PlayerAuthServer.Controllers
 {
     [ApiController]
     [Route("api/player")]

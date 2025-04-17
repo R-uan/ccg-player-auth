@@ -1,7 +1,8 @@
+using PlayerAuthServer.Models;
 using PlayerAuthServer.Database;
-using PlayerAuthServer.Entities;
+using PlayerAuthServer.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Repositories;
 
 namespace PlayerAuthServer.Tests.UnitTests.Repositories
 {

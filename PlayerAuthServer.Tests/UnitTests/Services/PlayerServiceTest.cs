@@ -1,9 +1,7 @@
 using Moq;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Database.Repositories;
-using PlayerAuthServer.Entities;
-using PlayerAuthServer.Entities.Models;
+using PlayerAuthServer.Interfaces;
 using PlayerAuthServer.Models;
+using PlayerAuthServer.Services;
 
 namespace PlayerAuthServer.Tests.UnitTests.Services
 {

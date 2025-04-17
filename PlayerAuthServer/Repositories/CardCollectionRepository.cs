@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
+using PlayerAuthServer.Models;
 using PlayerAuthServer.Database;
 using PlayerAuthServer.Interfaces;
-using PlayerAuthServer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlayerAuthServer.Repositories
 {

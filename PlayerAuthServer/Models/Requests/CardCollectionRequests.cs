@@ -1,4 +1,4 @@
-namespace PlayerAuthServer.Utilities.Requests
+namespace PlayerAuthServer.Models.Requests
 {
     public class CollectCardRequest
     {

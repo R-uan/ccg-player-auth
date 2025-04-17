@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PlayerAuthServer.Utilities.Requests
+namespace PlayerAuthServer.Models.Requests
 {
     /// <summary>
     /// Represents the required data to register a new player account.
@@ -27,6 +27,12 @@ namespace PlayerAuthServer.Utilities.Requests
         /// </summary>
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters.")]
+        public required string Password { get; set; }
+    }
+
+    public class LoginRequest
+    {
+        public required string Email { get; set; }
         public required string Password { get; set; }
     }
 }

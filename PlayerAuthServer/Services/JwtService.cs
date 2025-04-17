@@ -4,9 +4,10 @@ using PlayerAuthServer.Utilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using PlayerAuthServer.Entities;
+using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Models;
 
-namespace PlayerAuthServer.Core.Services
+namespace PlayerAuthServer.Services
 {
     public class JwtService(IOptions<JwtSettings> jwtSettings) : IJwtService
     {

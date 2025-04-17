@@ -1,7 +1,7 @@
 using PlayerAuthServer.Models;
 using PlayerAuthServer.Interfaces;
-using PlayerAuthServer.Utilities.Requests;
-using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Models.Responses;
+using PlayerAuthServer.Models.Requests;
 
 namespace PlayerAuthServer.Services
 {

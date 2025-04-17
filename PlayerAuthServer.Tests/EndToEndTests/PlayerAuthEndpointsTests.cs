@@ -1,8 +1,7 @@
-using System;
-using System.Net.Http.Json;
 using FluentAssertions;
-using PlayerAuthServer.Utilities.Requests;
-using PlayerAuthServer.Utilities.Responses;
+using PlayerAuthServer.Models.Requests;
+using PlayerAuthServer.Models.Responses;
+using System.Net.Http.Json;
 
 namespace PlayerAuthServer.Tests.EndToEndTests;
 

@@ -1,7 +1,5 @@
-using PlayerAuthServer.Entities;
-using PlayerAuthServer.Utilities;
-using Microsoft.EntityFrameworkCore;
 using PlayerAuthServer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlayerAuthServer.Database
 {

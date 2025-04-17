@@ -1,6 +1,6 @@
-using PlayerAuthServer.Entities;
+using PlayerAuthServer.Models;
 
-namespace PlayerAuthServer.Core.Services
+namespace PlayerAuthServer.Interfaces
 {
     /// <summary>
     /// Provides functionality for generating JSON Web Tokens (JWT) for authenticated players.

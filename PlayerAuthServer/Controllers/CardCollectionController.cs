@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlayerAuthServer.Utilities;
 using PlayerAuthServer.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Models.Requests;
 
 namespace PlayerAuthServer.Controllers
 {

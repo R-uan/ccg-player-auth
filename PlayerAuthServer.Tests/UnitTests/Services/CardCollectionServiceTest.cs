@@ -1,10 +1,8 @@
 using Moq;
 using PlayerAuthServer.Models;
-using PlayerAuthServer.Entities;
 using PlayerAuthServer.Services;
 using PlayerAuthServer.Interfaces;
-using PlayerAuthServer.Utilities.Requests;
-using PlayerAuthServer.Database.Repositories;
+using PlayerAuthServer.Models.Requests;
 
 namespace PlayerAuthServer.Tests.UnitTests.Services
 {

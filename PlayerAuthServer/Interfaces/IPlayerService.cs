@@ -1,8 +1,6 @@
-using PlayerAuthServer.Entities;
-using PlayerAuthServer.Entities.Models;
 using PlayerAuthServer.Models;
 
-namespace PlayerAuthServer.Core.Services
+namespace PlayerAuthServer.Interfaces
 {
     public interface IPlayerService
     {

@@ -1,15 +1,12 @@
 using System.Text;
 using PlayerAuthServer.Database;
 using PlayerAuthServer.Utilities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using PlayerAuthServer.Core.Services;
-using PlayerAuthServer.Database.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using PlayerAuthServer.Interfaces;
-using PlayerAuthServer.Models;
 using PlayerAuthServer.Services;
+using PlayerAuthServer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using PlayerAuthServer.Repositories;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace PlayerAuthServer
 {

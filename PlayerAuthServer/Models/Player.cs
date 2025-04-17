@@ -1,10 +1,9 @@
-using PlayerAuthServer.Models;
 using System.Text.Json.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PlayerAuthServer.Entities
+namespace PlayerAuthServer.Models
 {
     [ExcludeFromCodeCoverage]
     public class Player

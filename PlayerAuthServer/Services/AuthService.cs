@@ -1,11 +1,10 @@
-using AutoMapper;
-using PlayerAuthServer.Utilities.Requests;
-using PlayerAuthServer.Utilities.Exceptions;
-using PlayerAuthServer.Entities.Models;
-using PlayerAuthServer.Database.Repositories;
 using PlayerAuthServer.Models;
+using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Exceptions;
+using PlayerAuthServer.Models.Requests;
+using PlayerAuthServer.Utilities.Exceptions;
 
-namespace PlayerAuthServer.Core.Services
+namespace PlayerAuthServer.Services
 {
     public class AuthService(
         IJwtService jwtService,

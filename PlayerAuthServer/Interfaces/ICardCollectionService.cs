@@ -1,5 +1,6 @@
 using PlayerAuthServer.Models;
-using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Models.Requests;
+using PlayerAuthServer.Models.Responses;
 
 namespace PlayerAuthServer.Interfaces
 {
