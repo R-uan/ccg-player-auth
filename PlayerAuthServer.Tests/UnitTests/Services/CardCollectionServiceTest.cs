@@ -1,10 +1,10 @@
 using Moq;
-using PlayerAuthServer.Database.Repositories;
-using PlayerAuthServer.Entities;
-using PlayerAuthServer.Interfaces;
 using PlayerAuthServer.Models;
+using PlayerAuthServer.Entities;
 using PlayerAuthServer.Services;
+using PlayerAuthServer.Interfaces;
 using PlayerAuthServer.Utilities.Requests;
+using PlayerAuthServer.Database.Repositories;
 
 namespace PlayerAuthServer.Tests.UnitTests.Services
 {
@@ -67,6 +67,27 @@ namespace PlayerAuthServer.Tests.UnitTests.Services
                 .ReturnsAsync((Player?)null);
             var result = await this.cardCollectionService.FindPlayerCollection(Guid.NewGuid());
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task CheckCollection_ShouldReturnCollectionResponse()
+        {
+            var mockPlayerId = Guid.NewGuid();
+            var mockReturn = new List<CardCollection> { new(Guid.NewGuid(), 1, mockPlayerId) };
+            var request = new CheckCardCollectionRequest
+            {
+                CardIds = [mockReturn[0].CardId.ToString(), "invalid-one", Guid.NewGuid().ToString()]
+            };
+
+            this.mockCardCollectionRepository.Setup(repo => repo.FindOwnedCards(It.IsAny<List<Guid>>(), It.IsAny<Guid>()))
+                .ReturnsAsync(mockReturn);
+
+            var result = await this.cardCollectionService.CheckCollection(request, mockPlayerId);
+
+            Assert.NotNull(result);
+            Assert.Single(result.OwnedCards);
+            Assert.Single(result.UnownedCards);
+            Assert.Single(result.InvalidCards);
         }
     }
 }

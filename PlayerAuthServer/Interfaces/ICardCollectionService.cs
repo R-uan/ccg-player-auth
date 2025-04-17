@@ -7,5 +7,6 @@ namespace PlayerAuthServer.Interfaces
     {
         Task<List<CardCollection>?> FindPlayerCollection(Guid playerId);
         Task<CardCollection> CollectCard(CollectCardRequest request, Guid playerId);
+        Task<CheckCollectionResponse> CheckCollection(CheckCardCollectionRequest request, Guid playerId);
     }
 }

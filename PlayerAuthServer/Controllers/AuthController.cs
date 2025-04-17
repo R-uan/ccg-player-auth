@@ -1,10 +1,9 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlayerAuthServer.Utilities;
 using PlayerAuthServer.Core.Services;
 using PlayerAuthServer.Utilities.Requests;
 using PlayerAuthServer.Utilities.Responses;
 using PlayerAuthServer.Utilities.Exceptions;
-using PlayerAuthServer.Entities.Models;
 
 namespace PlayerAuthServer.Core.Controllers
 {
@@ -17,19 +16,19 @@ namespace PlayerAuthServer.Core.Controllers
         {
             try
             {
-                string jwt = await service.AuthenticatePlayer(login);
-                return Ok(new LoginResponse { Token = jwt });
-
+                string token = await service.AuthenticatePlayer(login);
+                var response = new LoginResponse(token);
+                return Ok(response);
             }
-            catch (System.Exception exception)
+            catch (System.Exception ex)
             {
-                return exception switch
+                Logger.Error(ex.Message);
+                return ex switch
                 {
-                    UnauthorizedAccessException => Unauthorized(exception.Message),
-                    PlayerNotFoundException => Unauthorized(exception.Message),
-                    _ => StatusCode(500, exception.Message)
+                    PlayerNotFoundException => Unauthorized(),
+                    UnauthorizedAccessException => Unauthorized(),
+                    _ => StatusCode(500, "An unexpected error has occurred.")
                 };
-                throw;
             }
         }
 
@@ -51,9 +50,13 @@ namespace PlayerAuthServer.Core.Controllers
             }
             catch (Exception ex)
             {
-                if (ex is DuplicateEmailException || ex is DuplicateUsernameException)
-                    return BadRequest(ex.Message);
-                return StatusCode(500, "An unexpected error occurred.");
+                Logger.Error(ex.Message);
+                return ex switch
+                {
+                    DuplicateEmailException => BadRequest("Email already in use."),
+                    DuplicateUsernameException => BadRequest("Username already in use."),
+                    _ => StatusCode(500, "An unexpected error occurred.")
+                };
             }
         }
     }

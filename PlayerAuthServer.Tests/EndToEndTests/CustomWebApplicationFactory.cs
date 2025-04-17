@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using PlayerAuthServer.Database;
 using PlayerAuthServer.Entities;
 
-namespace PlayerAuthServer.Tests.E2E
+namespace PlayerAuthServer.Tests.EndToEndTests
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {

@@ -4,9 +4,9 @@ using FluentAssertions;
 using PlayerAuthServer.Utilities.Requests;
 using PlayerAuthServer.Utilities.Responses;
 
-namespace PlayerAuthServer.Tests.E2E;
+namespace PlayerAuthServer.Tests.EndToEndTests;
 
-public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
+public class PlayerAuthEndpointsTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient client = factory.CreateClient();
 
@@ -99,7 +99,5 @@ public class PlayerApiTests(CustomWebApplicationFactory factory) : IClassFixture
         var response = await client.PostAsJsonAsync("/api/auth/login", request);
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
     }
-
-
 }
 

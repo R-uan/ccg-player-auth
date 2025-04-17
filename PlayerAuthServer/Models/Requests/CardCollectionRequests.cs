@@ -12,4 +12,12 @@ namespace PlayerAuthServer.Utilities.Requests
             this.Amount = amount;
         }
     }
+
+    public class CheckCardCollectionRequest
+    {
+        public required List<string> CardIds { get; set; }
+
+        public CheckCardCollectionRequest() { }
+        public CheckCardCollectionRequest(List<string> cardIds) { this.CardIds = cardIds; }
+    }
 }

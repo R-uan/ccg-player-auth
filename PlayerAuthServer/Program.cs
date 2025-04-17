@@ -6,6 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 using PlayerAuthServer.Core.Services;
 using PlayerAuthServer.Database.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using PlayerAuthServer.Interfaces;
+using PlayerAuthServer.Models;
+using PlayerAuthServer.Services;
+using PlayerAuthServer.Repositories;
 
 namespace PlayerAuthServer
 {
@@ -29,6 +33,9 @@ namespace PlayerAuthServer
             var jwtSettingsSection = builder.Configuration.GetSection("Jwt");
             builder.Services.Configure<JwtSettings>(jwtSettingsSection);
             builder.Services.AddScoped<IJwtService, JwtService>();
+
+            builder.Services.AddScoped<ICardCollectionRepository, CardCollectionRepository>();
+            builder.Services.AddScoped<ICardCollectionService, CardCollectionService>();
 
             builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
             builder.Services.AddScoped<IPlayerService, PlayerService>();

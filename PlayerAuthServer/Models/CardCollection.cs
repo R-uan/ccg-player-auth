@@ -9,13 +9,13 @@ namespace PlayerAuthServer.Models
     {
         [Key]
         public Guid CardId { get; set; } = cardId;
+        public int Amount { get; set; } = amount;
 
         [Key]
         public Guid PlayerId { get; set; } = playerId;
-        public int Amount { get; set; } = amount;
 
         [JsonIgnore]
-        [ForeignKey("PlayerGuid")]
+        [ForeignKey("PlayerId")]
         public Player? Player { get; set; }
     }
 }

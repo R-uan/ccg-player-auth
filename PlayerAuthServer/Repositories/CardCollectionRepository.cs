@@ -16,6 +16,9 @@ namespace PlayerAuthServer.Repositories
         }
 
         public async Task<List<CardCollection>> FindPlayerCardCollection(Guid playerId)
-            => await dbContext.CardCollection.Where(oc => oc.PlayerId == playerId).ToListAsync();
+            => await dbContext.CardCollection.Where(co => co.PlayerId == playerId).ToListAsync();
+
+        public async Task<List<CardCollection>> FindOwnedCards(List<Guid> collection, Guid playerId)
+            => await dbContext.CardCollection.Where(co => collection.Contains(co.CardId) && co.PlayerId == playerId).ToListAsync();
     }
 }

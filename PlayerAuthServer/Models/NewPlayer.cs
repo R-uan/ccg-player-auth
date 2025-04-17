@@ -13,7 +13,7 @@ namespace PlayerAuthServer.Entities.Models
             {
                 Email = request.Email,
                 Username = request.Username,
-                PasswordHash = request.Password,
+                PasswordHash = Bcrypt.HashPassword(request.Password),
             };
     }
 }

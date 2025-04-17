@@ -54,8 +54,6 @@ namespace PlayerAuthServer.Tests.UnitTests.Services
             this.mockPlayerRepository.Verify(repository => repository.FindPlayerByEmail(It.IsAny<string>()), Times.Once);
             this.mockJwtService.Verify(service => service.GenerateToken(It.IsAny<Player>()), Times.Once);
 
-            Console.WriteLine($">> {result}");
-
             Assert.NotNull(result);
             Assert.NotEmpty(result);
         }
